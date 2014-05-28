@@ -1,0 +1,44 @@
+.node circle {
+    fill: #fff;
+    stroke-width: 3px;
+}
+
+.node {
+    font: 0.65em sans-serif;
+}
+
+rect {
+    fill: #fff;
+    stroke-width: 3px;
+    stroke: #999;
+}
+
+.input circle {
+    stroke: steelblue;
+}
+
+.output circle{
+    stroke: #f04124;
+}
+
+.link {
+    fill: none;
+    stroke-width: 3px;
+}
+
+.window {
+    stroke-width: 6px;
+}
+
+.target-x {
+    stroke: #43AC6A;
+
+}
+
+.target-y {
+    stroke: #AC436A;
+}
+
+.hidden {
+    display: none;
+}
