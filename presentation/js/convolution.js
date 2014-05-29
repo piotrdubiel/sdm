@@ -41,7 +41,7 @@ var output_square = svg.selectAll("rect.output")
     .enter().append("rect")
     .attr("class", "input hidden")
     .attr("x", function(d) { return output_scale(Math.floor(d / 3)) + height / 2 + 200; })
-    .attr("y", function(d) { return output_scale(d % 3) + 120; })
+    .attr("y", function(d) { return output_scale(d % 3) + 200; })
     .attr("width",  function(d) { return output_scale(d % 3 + 1) - output_scale(d % 3); })
     .attr("height", function(d) { return output_scale(d % 3 + 1)- output_scale(d % 3); });
 
@@ -62,7 +62,7 @@ function drawConvolution() {
         .attr("class", "output hidden");
 
     svg.selectAll("rect.window")
-        .attr("class", "window hidden");
+        .classed("hidden", true);
 
     d3.json("/data/convolution.json", function(error, root) {
         var nodes = root.nodes;
@@ -81,7 +81,7 @@ function drawConvolution() {
                         },
                         target: {
                             "x": output_scale(Math.floor(find_name(nodes, nodes[i].parent[j]).id / 3)) + height / 2 + 200 + (output_scale(find_name(nodes, nodes[i].parent[j]).id % 3 + 1) - output_scale(find_name(nodes, nodes[i].parent[j]).id % 3)) / 2,
-                            "y": output_scale(find_name(nodes, nodes[i].parent[j]).id % 3) + 120 + (output_scale(find_name(nodes, nodes[i].parent[j]).id % 3 + 1) - output_scale(find_name(nodes, nodes[i].parent[j]).id % 3)) / 2
+                            "y": output_scale(find_name(nodes, nodes[i].parent[j]).id % 3) + 200 + (output_scale(find_name(nodes, nodes[i].parent[j]).id % 3 + 1) - output_scale(find_name(nodes, nodes[i].parent[j]).id % 3)) / 2
                         },
                         "class": "target-" + find_name(nodes, nodes[i].parent[j]).name
                     });
@@ -177,7 +177,7 @@ function transitionConvolution() {
             .classed("hidden", function(d) { return d.id != 0 && d.id != 4;})
             .transition()
             .duration(3000)
-            .attr("transform", function(d) { return "translate(" + (output_scale(Math.floor(d.id / 3))  + height / 2 + 200 + (output_scale(d.id % 3 + 1) - output_scale(d.id % 3)) / 2) + "," + (output_scale(d.id % 3) + 120 + (output_scale(d.id % 3 + 1) - output_scale(d.id % 3)) / 2) + ")"; });
+            .attr("transform", function(d) { return "translate(" + (output_scale(Math.floor(d.id / 3))  + height / 2 + 200 + (output_scale(d.id % 3 + 1) - output_scale(d.id % 3)) / 2) + "," + (output_scale(d.id % 3) + 200 + (output_scale(d.id % 3 + 1) - output_scale(d.id % 3)) / 2) + ")"; });
 
         for (var i = 0, l = nodes.length; i < l; i ++) {
             if (nodes[i].parent) {
@@ -191,7 +191,7 @@ function transitionConvolution() {
                         },
                         target: {
                             "x": output_scale(Math.floor(find_name(nodes, nodes[i].parent[j]).id / 3)) + height / 2 + 200 + (output_scale(find_name(nodes, nodes[i].parent[j]).id % 3 + 1) - output_scale(find_name(nodes, nodes[i].parent[j]).id % 3)) / 2,
-                            "y": output_scale(find_name(nodes, nodes[i].parent[j]).id % 3) + 120 + (output_scale(find_name(nodes, nodes[i].parent[j]).id % 3 + 1) - output_scale(find_name(nodes, nodes[i].parent[j]).id % 3)) / 2
+                            "y": output_scale(find_name(nodes, nodes[i].parent[j]).id % 3) + 200 + (output_scale(find_name(nodes, nodes[i].parent[j]).id % 3 + 1) - output_scale(find_name(nodes, nodes[i].parent[j]).id % 3)) / 2
                         },
                         "class": "target-" + find_name(nodes, nodes[i].parent[j]).name
                     });
@@ -204,8 +204,7 @@ function transitionConvolution() {
             .source(function(d) { return {"x":d.source.y, "y":d.source.x}; })            
             .target(function(d) { return {"x":d.target.y, "y":d.target.x}; })
             .projection(function(d) { return [d.y, d.x]; });
-
-
+ 
         var link = svg.selectAll(".link")
             .data(links, function(d) { return d.id;})
             .transition()

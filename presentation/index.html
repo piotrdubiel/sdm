@@ -4,10 +4,9 @@
 <head>
 <meta charset="utf-8">
 
-<title>reveal.js - The HTML Presentation Framework</title>
+<title>Klasyfikacja pisma odręcznego</title>
 
-<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-<meta name="author" content="Hakim El Hattab">
+<meta name="author" content="Piotr Dubiel">
 
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -61,12 +60,69 @@ if( window.location.search.match( /print-pdf/gi ) ) {
             <ul>
                 <li class="fragment">Głębokie sieci neurownowe</li>
                 <li class="fragment">Konwolucyjne sieci neuronowe</li>
-                <li class="fragment">Ograniczona maszyna Boltzmana</li>
-                <li class="fragment"></li>
+                <li class="fragment">Ograniczona maszyna Boltzmana i DBN</li>
             </ul>
         </section>
 
+        <section>
+            <h2>Głębokie sieci neuronowe</h2>
+            <ul>
+                <li class="fragment">
+                    <span>przejście z prostej reprezentacji na ogólne pojęcia</span>
+                    <ul>
+                        <li class="fragment">od zbiór pikseli do cyfry</li>
+                        <li class="fragment">od listy słów w dokumencie do typu dokumentu</li>
+                    </ul>
+                </li>
+                <li class="fragment">
+                    <span>klasyfikator tworzący wiele reprezentacji pośrednich</span>
+                </li>
+                <li class="fragment">każda warstwa tworzy nową reprezentację z otrzymanego wejścia</li>
+                <li class="fragment">
+                    <span>potencjalnie cechy wykryte przez klasyfikator będą lepsze od wymyślonych przez człowieka</span>
+                    <ul>
+                        <li class="fragment">analiza takich sztucznie wytworzonych cech jest trudna</li>
+                        <li class="fragment">jednak niekoniecznie musimy wiedzieć, co te cechy oznaczają</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
 
+        <section>
+            <h3>Problem uczenia wielowarstwowej sieci neuronowej</h3>
+            <ul>
+                <li class="fragment">
+                    <span>metoda propagacji wstecznej nie nadaje się do zastosowania przy głębszych strukturach</span>
+                    <ul>
+                        <li class="fragment">każda warstwa otrzymuje coraz mniej informacji</li>
+                    </ul>
+                </li>
+                <li class="fragment">przy tak dużej liczbie wag istnieje duże prawdopodobieństwo utknięcia w minimach lokalnych lub płaskich obszarach</li>
+                <li class="fragment">wyniki dla sieci o głębokich strukturach są często słabsze niż dla płytkich</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Konwolucyjna sieć neuronowa</h2>
+            <h3 class="fragment">Convolutional neural network</h3>
+            <ul>
+                <li class="fragment">działa na dwuwymiarowych danych</li>
+                <li class="fragment">jest odporna na translację</li>
+                <li class="fragment">
+                    <span>współdzieli wagi w ramach jednej mapy cech<span>
+                </li>
+                <li class="fragment">
+                    <span>posiada mało wag w porównaniu do klasycznej sieci</span>
+                    <ul>
+                        <li class="fragment">warstwa o 6 mapach cech i jądrze 5x5</li>
+                        <li class="fragment">(5x5+1)x6 = 156 wag</li>
+                    </ul>
+                </li>
+                <li class="fragment">po każdej konwolucji następuje faza próbkowania</li>
+                <li class="fragment">ostatnie warstwy mają pełne połaczenia</li>
+            </ul>
+        </section>
+        
         <section id="convolution" data-state="convolution-start">
             <svg class="convolutional-network"></svg>
             <span class="fragment" data-fragment-index="0"></span>
@@ -74,6 +130,57 @@ if( window.location.search.match( /print-pdf/gi ) ) {
             <span class="fragment" data-fragment-index="2"></span>
         </section>
 
+        <section>
+            <h2>LeNet</h2>
+            <p><img src="img/lenet5.png" alt=""></p>
+            <small>Źródło: Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, november 1998.</small>
+        </section>
+
+        <section>
+            <h2>LeNet</h2>
+            <p><img src="img/mnist.png" alt=""></p>
+            <small>Źródło: http://yann.lecun.com/exdb/mnist/</small>
+        </section>
+
+        <section>
+            <h2>Ograniczona maszyna Boltzmana</h2>
+            <h3 class="fragment">Restricted Boltzman machine</h3>
+            <ul>
+                <li class="fragment">podstawowym elementem jest stochastyczny, binarny neuron
+                $$
+                p(y=1) = sigm(\sum\limits_{i} x_{i} w_{ij})
+                $$
+                </li>
+                <li class="fragment">każda warstwa mapuje zestaw cech wejściowych na inny zestaw cech</li>
+                <li class="fragment">warstwy są wstanie generować przykłady</li>
+                <li class="fragment">uczenie polega na trenowaniu każdej warstwy oddzielnie</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>DBN</h3>
+            <p>
+                <img src="img/dbn.png" alt="">
+            </p>
+            <small></small>
+        </section>
+
+        <section>
+            <iframe src="http://www.cs.toronto.edu/~hinton/adi/index.htm" frameborder="0"  width="960" height="640" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe>
+            <small>Źródło: http://www.cs.toronto.edu/~hinton/adi/index.htm</small>
+        </section>
+
+        <section>
+        
+        </section>
+        
+        <section>
+        
+        </section>
+
+        <section>
+            <h2>Dziękuję</h2>
+        </section>
 
         <!-- Example of nested vertical slides -->
         <section>
@@ -385,8 +492,13 @@ Reveal.initialize({
     center: true,
 
     theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+    transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
+    math: {
+        mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+    },
+    
     // Parallax scrolling
     // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
     // parallaxBackgroundSize: '2100px 900px',
@@ -399,6 +511,7 @@ Reveal.initialize({
         { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
         { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
         { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        { src: 'plugin/math/math.js', async: true }
     ]
 });
 
